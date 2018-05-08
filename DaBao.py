@@ -12,7 +12,7 @@ from email.mime.text import MIMEText
 1、将工程的编译设备选成 Gemeric iOS Device
 2、command + B编译
 3、执行脚本文件
-
+4、等待完成
 '''
 
 appFileFullPath = '/Users/zhaojian/Library/Developer/Xcode/DerivedData/slazyiPhone-aheuceqholetgucxufwteytuaosi/Build/Products/Debug-iphoneos/slazyiPhone.app'
