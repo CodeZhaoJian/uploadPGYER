@@ -11,24 +11,37 @@ from email.mime.text import MIMEText
 使用注意事项:该脚本基于python2.7
 1、将工程的编译设备选成 Gemeric iOS Device
 2、command + B编译
-3、执行脚本文件
-4、等待完成
+3、使用 终端 cd 至脚本文件存放目录 并执行 python DaBao.py 即可 （Mac 本身带有python2 环境，若安装了python3 环境请 执行 python3 DaBao.py）
+
+⚠️⚠️⚠️ 发送方邮箱设置
+
+邮件发送方式使用 SMTP服务 需设置SMTP服务
+
+以QQ邮箱举例
+
+QQ邮箱 -  设置  - 账户 - POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务 - IMAP/SMTP服务
+
+在 “IMAP/SMTP服务” 右边会有一个 ”开启“ 按钮
+
+点击开启按钮 会弹出一个对话框 里面有一个 16位的字符串 将此字符串 设置到下方 “mail_pass” 中 并将发送发QQ邮箱的地址填入 “mail_user”中
 '''
 
-appFileFullPath = '/Users/zhaojian/Library/Developer/Xcode/DerivedData/slazyiPhone-aheuceqholetgucxufwteytuaosi/Build/Products/Debug-iphoneos/slazyiPhone.app'
+appFileFullPath = '/Users/zhaojian/Library/Developer/Xcode/DerivedData/slazyiPhone-hdvbbhrsyjtuveemsuvhvofeinab/Build/Products/Debug-iphoneos/slazyiPhone.app'
 
 PayLoadPath = '/Users/zhaojian/Desktop/Payload'
 packBagPath = '/Users/zhaojian/Desktop/ProgramBag'
-openUrlPath = 'https://www.pgyer.com/manager/dashboard/app/81cd3abf546db122acbdf46c7122f372'
-downloadUrlPath = 'https://www.pgyer.com/IrEO'
 
-mail_user = 'XXXXXXX@qq.com'                                 #发送方邮箱
-mail_pass = 'XXXXXXXXXX'                                   #填入发送方邮箱的授权码
-msg_to = 'XXXXXXX@qq.com'                                  #收件人邮箱
-mail_namelist = ["XXXXXXX@qq.com","XXXXXXX@qq.com"]
+openUrlPath = 'xxxxxxxx'
+
+downloadUrlPath = 'xxxxxxxxxx'
+
+mail_user = '961826736@qq.com'                                 #发送方邮箱
+mail_pass = 'xxxxxxxxx'                                   #填入发送方邮箱的授权码
+mail_namelist = ["961826736@qq.com","33067321@qq.com"]  #收件人邮箱
 #上传蒲公英
-USER_KEY = "f3349584fcc53b9121668a6c169ca4ae"
-API_KEY = "c2e197efdfa7f03536475cd9e48af9fd"
+USER_KEY = "xxxxxxxxxxx"
+
+API_KEY = "xxxxxxxxxxx"
 
 #上传蒲公英
 def uploadIPA(IPAPath):
@@ -76,7 +89,6 @@ def bulidIPA():
     #删除payLoad文件夹
     commands.getoutput('rm -rf ./Payload')
 
-
 #创建PayLoad文件夹
 def mkdir(PayLoadPath):
     isExists = os.path.exists(PayLoadPath)
@@ -89,13 +101,14 @@ def mkdir(PayLoadPath):
         return False
 
 #发送邮件
-def send_qq_email(title,conen):
+def send_qq_email(conen):
     try:
-        
+        #设置标题
+        title = "App 测试版本更新"
+        #设置内容       此内容拼接了 下载地址以及刚刚输入更新的日志描述
         content = "新版本已发布请前往:\n" + downloadUrlPath + " 下载测试" + "\n更新内容:" + conen
         
         msg = MIMEText(str(content))
-        #设置标题
         msg["Subject"] = title
         # 发件邮箱
         msg["From"] = mail_user
@@ -119,4 +132,4 @@ if __name__ == '__main__':
     bulidIPA()
     uploadIPA('%s/Payload.ipa'%packBagPath)
     openDownloadUrl()
-    send_qq_email("App 测试版本更新",des)
+    send_qq_email(des)
